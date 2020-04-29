@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanPort.PCParadiseBot", "RomanPort.PCParadiseBot\RomanPort.PCParadiseBot.csproj", "{2840C2AA-A8D3-456C-96CF-EF1030801DA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2840C2AA-A8D3-456C-96CF-EF1030801DA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2840C2AA-A8D3-456C-96CF-EF1030801DA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2840C2AA-A8D3-456C-96CF-EF1030801DA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2840C2AA-A8D3-456C-96CF-EF1030801DA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7DCA98D4-3024-4A57-9649-5DFB8B0D1FA2}
+	EndGlobalSection
+EndGlobal
