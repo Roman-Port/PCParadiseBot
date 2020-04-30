@@ -1,4 +1,5 @@
-﻿using RomanPort.PCParadiseBot.Entities;
+﻿using DSharpPlus.Entities;
+using RomanPort.PCParadiseBot.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -61,6 +62,37 @@ namespace RomanPort.PCParadiseBot
         public void BindToCommandModerator(string prefix, DiscordFilterCommandArgsCallback callback)
         {
             BindToCommandRole(prefix, PCStatics.enviornment.role_moderator, callback);
+        }
+
+        /// <summary>
+        /// Logs to the server logging channel
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="text"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task LogToServer(string title, string text, DiscordUser user)
+        {
+            //Build embed
+            var embed = new DiscordEmbedBuilder();
+            embed.Title = title;
+            embed.Description = text;
+            embed.Footer = new DiscordEmbedBuilder.EmbedFooter
+            {
+                Text = "MODULE " + GetType().FullName
+            };
+            if(user != null)
+            {
+                embed.Author = new DiscordEmbedBuilder.EmbedAuthor
+                {
+                    Name = $"{user.Username}#{user.Discriminator} (ID {user.Id})",
+                    IconUrl = user.AvatarUrl
+                };
+            }
+            embed.Color = DiscordColor.Red;
+
+            //Send
+            await Program.discord.SendMessageAsync(await Program.discord.GetChannelAsync(PCStatics.enviornment.channel_logs), embed: embed);
         }
     }
 }

@@ -2,6 +2,7 @@
 using DSharpPlus.Entities;
 using Newtonsoft.Json;
 using RomanPort.PCParadiseBot.Modules.RomanPort.ExampleModule;
+using RomanPort.PCParadiseBot.Modules.RomanPort.SetupsModule;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -59,6 +60,7 @@ namespace RomanPort.PCParadiseBot
         {
             //Add your module here
             modules.Add(new ExamplePCModule());
+            modules.Add(new SetupsPCModule());
         }
 
         /// <summary>
