@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RomanPort.PCParadiseBot.Modules.RomanPort.ExampleModule
+namespace RomanPort.PCParadiseBot.Modules.ExampleModule
 {
     public class ExamplePCModule : PCModule
     {

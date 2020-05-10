@@ -1,8 +1,8 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
 using Newtonsoft.Json;
-using RomanPort.PCParadiseBot.Modules.RomanPort.ExampleModule;
-using RomanPort.PCParadiseBot.Modules.RomanPort.SetupsModule;
+using RomanPort.PCParadiseBot.Modules.ExampleModule;
+using RomanPort.PCParadiseBot.Modules.SetupsModule;
 using System;
 using System.Collections.Generic;
 using System.IO;
