@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace RomanPort.PCParadiseBot.Modules.RomanPort.SetupsModule
+namespace RomanPort.PCParadiseBot.Modules.SetupsModule
 {
     public class SetupsPCModule : PCModule
     {
