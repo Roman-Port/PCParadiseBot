@@ -2,7 +2,9 @@
 using DSharpPlus.Entities;
 using Newtonsoft.Json;
 using RomanPort.PCParadiseBot.Modules.ExampleModule;
+using RomanPort.PCParadiseBot.Modules.PartSaleModule;
 using RomanPort.PCParadiseBot.Modules.SetupsModule;
+using Romanport.PCParadiseBot.Modules.RedditClient;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +16,7 @@ namespace RomanPort.PCParadiseBot
     {
         public static DiscordClient discord;
         public static List<PCModule> modules;
-        
+        public static RedditClient reddit;
         static void Main(string[] args)
         {
             MainAsync().GetAwaiter().GetResult();
@@ -32,10 +34,14 @@ namespace RomanPort.PCParadiseBot
                 Token = PCStatics.enviornment.access_token,
                 TokenType = TokenType.Bot
             });
+            reddit = await RedditClient.init(PCStatics.enviornment.reddit_secret, "PCParadiseDiscordBotv1");
 
             //Add modules
             modules = new List<PCModule>();
             AddModules();
+
+            //Connect
+            await discord.ConnectAsync();
 
             //Enable modules
             foreach (var m in modules)
@@ -43,24 +49,21 @@ namespace RomanPort.PCParadiseBot
                 try
                 {
                     await m.OnInit();
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
-                    await LogModuleError(ex, "Error while initializing module", m, null);
+                    LogModuleError(ex, "Error while initializing module", m, null);
                 }
             }
-
-            //Connect
-            await discord.ConnectAsync();
-
             //Hang
             await Task.Delay(-1);
         }
 
         public static void AddModules()
         {
-            //Add your module here
             modules.Add(new ExamplePCModule());
             modules.Add(new SetupsPCModule());
+            modules.Add(new PartSaleModule());
         }
 
         /// <summary>
@@ -69,7 +72,7 @@ namespace RomanPort.PCParadiseBot
         /// <param name="ex"></param>
         /// <param name="module"></param>
         /// <param name="context"></param>
-        public static async Task LogModuleError(Exception ex, string title, PCModule module, DiscordChannel context)
+        public static void LogModuleError(Exception ex, string title, PCModule module, DiscordChannel context)
         {
             Console.WriteLine($"Module {module.GetType().FullName} threw exception in {title}:\n    {ex.Message}\n    {ex.StackTrace}");
         }

@@ -1,7 +1,4 @@
 ﻿using DSharpPlus.EventArgs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RomanPort.PCParadiseBot.Entities
@@ -14,7 +11,7 @@ namespace RomanPort.PCParadiseBot.Entities
         {
             this.id = id;
         }
-        
+
         public override async Task<bool> IsAccepted(MessageCreateEventArgs e)
         {
             return e.Channel.Id == id;

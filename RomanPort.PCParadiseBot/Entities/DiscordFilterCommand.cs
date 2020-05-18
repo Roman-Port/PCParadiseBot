@@ -16,7 +16,7 @@ namespace RomanPort.PCParadiseBot.Entities
             this.prefix = prefix;
             this.callback = callback;
         }
-        
+
         public override async Task<bool> IsAccepted(MessageCreateEventArgs e)
         {
             return e.Message.Content.ToLower().StartsWith(prefix);

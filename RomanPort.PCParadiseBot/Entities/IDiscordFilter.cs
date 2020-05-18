@@ -1,7 +1,5 @@
 ﻿using DSharpPlus.EventArgs;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RomanPort.PCParadiseBot.Entities
@@ -27,11 +25,12 @@ namespace RomanPort.PCParadiseBot.Entities
                 //Check if supported
                 if (await IsAccepted(e))
                 {
-                    OnAccepted(e);
+                    await OnAccepted(e);
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                await Program.LogModuleError(ex, "Exception thrown while executing command", module, e.Channel);
+                Program.LogModuleError(ex, "Exception thrown while executing command", module, e.Channel);
             }
         }
     }
