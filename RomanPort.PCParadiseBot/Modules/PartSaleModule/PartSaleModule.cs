@@ -36,7 +36,6 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
                 builder.AddField($"Number {i}:", $"[{sub.posts.Current.name}]({sub.posts.Current.url})");
             }
             DiscordEmbed embed = builder.Build();
-            Console.WriteLine(Program.discord.CurrentUser.Id);
             if (lastMessage.Author.Id == Program.discord.CurrentUser.Id)
             {
                 await lastMessage.ModifyAsync(default(Optional<string>), new Optional<DiscordEmbed>(embed));

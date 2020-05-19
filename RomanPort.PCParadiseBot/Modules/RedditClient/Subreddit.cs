@@ -15,7 +15,6 @@ namespace RomanPort.PCParadiseBot.Modules.Reddit
         public IAsyncEnumerator<RedditPost> posts;
         public Subreddit(HttpClient client, string name, Queue<RedditPost> posts, string modhash, string after)
         {
-            System.Console.WriteLine(after);
             this.modhash = modhash;
             this.name = name;
             this.posts = new Posts(client, posts, name, after);
