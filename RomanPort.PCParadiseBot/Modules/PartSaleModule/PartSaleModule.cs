@@ -1,15 +1,17 @@
 ﻿using DSharpPlus.Entities;
 using System;
 using System.Threading.Tasks;
-
+using RomanPort.PCParadiseBot.Modules.Reddit;
 namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
 {
     public class PartSaleModule : PCModule
     {
         const int FIVE_SECONDS = 5000;
 
+        public static RedditClient reddit;
         public override async Task OnInit()
         {
+            reddit = await RedditClient.init(PCStatics.enviornment.reddit_secret, "PCParadiseBotv1");
             await Task.Run(async () =>
             {
                 while (true)
@@ -24,7 +26,7 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
         {
             var salesChannel = await Program.discord.GetChannelAsync(PCStatics.enviornment.channel_sales);
             var lastMessage = await salesChannel.GetMessageAsync(salesChannel.LastMessageId);
-            var sub = await Program.reddit.GetSub("buildapcsales");
+            var sub = await reddit.GetSub("buildapcsales");
             DiscordEmbedBuilder builder = new DiscordEmbedBuilder()
             .WithColor(new DiscordColor(245, 84, 66))
             .WithTitle("Current Part Sales!");

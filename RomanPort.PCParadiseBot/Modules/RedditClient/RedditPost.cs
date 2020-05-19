@@ -1,4 +1,4 @@
-namespace RomanPort.PCParadiseBot.Modules.RedditClient
+namespace RomanPort.PCParadiseBot.Modules.Reddit
 {
     public class RedditPost
     {

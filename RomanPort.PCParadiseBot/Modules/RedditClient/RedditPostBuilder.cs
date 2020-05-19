@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace RomanPort.PCParadiseBot.Modules.RedditClient
+namespace RomanPort.PCParadiseBot.Modules.Reddit
 {
     public class RedditPostBuilder
     {

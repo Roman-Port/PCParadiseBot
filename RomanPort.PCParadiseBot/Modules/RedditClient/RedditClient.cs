@@ -4,13 +4,11 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using RomanPort.PCParadiseBot.Modules.RedditClient;
 
-namespace Romanport.PCParadiseBot.Modules.RedditClient
+namespace RomanPort.PCParadiseBot.Modules.Reddit
 {
-    class RedditClient
+    public class RedditClient
     {
-#pragma warning disable 0649
         private HttpClient client;
 
         private RedditClient(HttpClient client)

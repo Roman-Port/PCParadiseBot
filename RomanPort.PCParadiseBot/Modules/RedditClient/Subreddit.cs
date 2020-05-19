@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 
-namespace RomanPort.PCParadiseBot.Modules.RedditClient
+namespace RomanPort.PCParadiseBot.Modules.Reddit
 {
     public class Subreddit
     {

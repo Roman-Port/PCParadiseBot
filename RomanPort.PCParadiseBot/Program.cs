@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using RomanPort.PCParadiseBot.Modules.ExampleModule;
 using RomanPort.PCParadiseBot.Modules.PartSaleModule;
 using RomanPort.PCParadiseBot.Modules.SetupsModule;
-using Romanport.PCParadiseBot.Modules.RedditClient;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +15,6 @@ namespace RomanPort.PCParadiseBot
     {
         public static DiscordClient discord;
         public static List<PCModule> modules;
-        public static RedditClient reddit;
         static void Main(string[] args)
         {
             MainAsync().GetAwaiter().GetResult();
@@ -34,7 +32,6 @@ namespace RomanPort.PCParadiseBot
                 Token = PCStatics.enviornment.access_token,
                 TokenType = TokenType.Bot
             });
-            reddit = await RedditClient.init(PCStatics.enviornment.reddit_secret, "PCParadiseDiscordBotv1");
 
             //Add modules
             modules = new List<PCModule>();
