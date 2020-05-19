@@ -25,7 +25,7 @@ namespace RomanPort.PCParadiseBot.Entities
                 //Check if supported
                 if (await IsAccepted(e))
                 {
-                    await OnAccepted(e);
+                    await Task.Run(() => OnAccepted(e));
                 }
             }
             catch (Exception ex)
