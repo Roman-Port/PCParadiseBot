@@ -6,7 +6,7 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
 {
     public class PartSaleModule : PCModule
     {
-        const int FIVE_SECONDS = 5000;
+        const int UPDATE_INTERVAL = 60 * 1000;
 
         public static RedditClient reddit;
         public override async Task OnInit()
@@ -17,7 +17,7 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
                 while (true)
                 {
                     await UpdateList();
-                    await Task.Delay(FIVE_SECONDS);
+                    await Task.Delay(UPDATE_INTERVAL);
                 }
             });
         }
@@ -29,7 +29,9 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
             var sub = await reddit.GetSub("buildapcsales");
             DiscordEmbedBuilder builder = new DiscordEmbedBuilder()
             .WithColor(new DiscordColor(245, 84, 66))
-            .WithTitle("Current Part Sales!");
+            .WithTitle("Current Part Sales!")
+            .WithFooter("Powered by r/buildapcsales • Created by John Benber#9876", "https://www.redditinc.com/assets/images/site/reddit-logo.png")
+            .WithTimestamp(DateTime.UtcNow);
             for (int i = 1; i < 6; i++)
             {
                 await sub.posts.MoveNextAsync();

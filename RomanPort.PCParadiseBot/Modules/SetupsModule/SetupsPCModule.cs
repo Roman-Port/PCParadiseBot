@@ -26,7 +26,7 @@ namespace RomanPort.PCParadiseBot.Modules.SetupsModule
         public const int REQUIREMENT_WORDS = 10;
         public const int REQUIREMENT_TIMEOUT_MINUTES = 30;
 
-        public const string GUIDE_LINK = "https://discordapp.com/channels/246414844851519490/246414844851519490/570060197528338442";
+        public const string GUIDE_LINK = "https://discordapp.com/channels/246414844851519490/260165399536992257/705647305176645723";
 
         private async Task OnMsgInSetupsSent(MessageCreateEventArgs e)
         {
