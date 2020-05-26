@@ -1,7 +1,10 @@
 using Newtonsoft.Json;
 
-namespace RomanPort.PCParadiseBot.Modules.Reddit
+namespace RomanPort.PCParadiseBot.Addons.Reddit
 {
+    /// <summary>
+    /// WRITTEN BY: awesomearvinder
+    /// </summary>
     public class RedditPostBuilder
     {
         public class data

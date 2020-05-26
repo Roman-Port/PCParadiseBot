@@ -3,8 +3,11 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 
-namespace RomanPort.PCParadiseBot.Modules.Reddit
+namespace RomanPort.PCParadiseBot.Addons.Reddit
 {
+    /// <summary>
+    /// WRITTEN BY: awesomearvinder
+    /// </summary>
     public class Subreddit
     {
 #pragma warning disable 0169

@@ -2,8 +2,11 @@ using System;
 using System.Net.Http;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-namespace RomanPort.PCParadiseBot.Modules.Reddit
+namespace RomanPort.PCParadiseBot.Addons.Reddit
 {
+    /// <summary>
+    /// WRITTEN BY: awesomearvinder
+    /// </summary>
     class SubredditBuilder
     {
         public HttpClient client;
