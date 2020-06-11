@@ -44,7 +44,11 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
             {
                 while (true)
                 {
-                    await UpdateList();
+                    try {
+                        await UpdateList();
+                    } catch (Exception ex) {
+                        await LogToServer("Failed to Update", "Failed to update sales message! Message may have been deleted or failed network request.", null);
+                    }
                     await Task.Delay(UPDATE_INTERVAL);
                 }
             });
@@ -69,13 +73,7 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
 
             //Build and update message
             DiscordEmbed embed = builder.Build();
-            try
-            {
-                await salesMessage.ModifyAsync(content:"", embed: embed);
-            } catch (Exception ex)
-            {
-                await LogToServer("Failed to Update", "Failed to update sales message! Was it deleted?", null);
-            }
+            await salesMessage.ModifyAsync(content:"", embed: embed);
         }
     }
 }
