@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace RomanPort.PCParadiseBot.Addons.Reddit
 {
     /// <summary>
-    /// WRITTEN BY: awesomearvinder
+    /// WRITTEN BY: awsomearvinder
     /// </summary>
     class SubredditBuilder
     {
