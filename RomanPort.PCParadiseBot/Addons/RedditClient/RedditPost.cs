@@ -26,12 +26,18 @@ namespace RomanPort.PCParadiseBot.Addons.Reddit
             get;
             private set;
         }
-        public RedditPost(string name, int score, string author, string url)
+        public bool stickied
+        {
+            get;
+            private set;
+        }
+        public RedditPost(string name, int score, string author, string url, bool stickied)
         {
             this.name = name;
             this.score = score;
             this.author = author;
             this.url = url;
+            this.stickied = stickied;
         }
     }
 }
