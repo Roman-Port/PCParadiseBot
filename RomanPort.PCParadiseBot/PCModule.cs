@@ -1,4 +1,5 @@
 ﻿using DSharpPlus.Entities;
+using Newtonsoft.Json;
 using RomanPort.PCParadiseBot.Entities;
 using System;
 using System.Collections.Generic;
@@ -92,7 +93,13 @@ namespace RomanPort.PCParadiseBot
             embed.Color = DiscordColor.Red;
 
             //Send
-            await Program.discord.SendMessageAsync(await Program.discord.GetChannelAsync(PCStatics.enviornment.channel_logs), embed: embed);
+            try
+            {
+                await Program.discord.SendMessageAsync(await Program.discord.GetChannelAsync(PCStatics.enviornment.channel_logs), embed: embed);
+            } catch (Exception ex)
+            {
+                Console.WriteLine($"FAILED TO SEND LOG WITH ERROR {ex.Message}: \nSTACK: {ex.StackTrace}\n\nEMBED: {JsonConvert.SerializeObject(embed)}");
+            }
         }
     }
 }

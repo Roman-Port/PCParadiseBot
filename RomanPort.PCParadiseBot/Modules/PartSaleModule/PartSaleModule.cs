@@ -40,7 +40,7 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
                 salesMessage = await salesChannel.SendMessageAsync("Loading, please wait...");
 
             //Begin the loop to fetch the list
-            await Task.Run(async () =>
+            Task.Run(async () =>
             {
                 while (true)
                 {

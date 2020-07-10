@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using RomanPort.PCParadiseBot.Modules.ExampleModule;
 using RomanPort.PCParadiseBot.Modules.PartSaleModule;
 using RomanPort.PCParadiseBot.Modules.SetupsModule;
+using RomanPort.PCParadiseBot.Modules.WelcomeModule;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,9 +37,11 @@ namespace RomanPort.PCParadiseBot
             //Add modules
             modules = new List<PCModule>();
             AddModules();
+            Console.WriteLine("Modules added.");
 
             //Connect
             await discord.ConnectAsync();
+            Console.WriteLine("Connected to Discord.");
 
             //Enable modules
             foreach (var m in modules)
@@ -52,6 +55,9 @@ namespace RomanPort.PCParadiseBot
                     LogModuleError(ex, "Error while initializing module", m, null);
                 }
             }
+            Console.WriteLine("Modules loaded.");
+            Console.WriteLine("Startup finished.");
+
             //Hang
             await Task.Delay(-1);
         }
@@ -61,6 +67,7 @@ namespace RomanPort.PCParadiseBot
             modules.Add(new ExamplePCModule());
             modules.Add(new SetupsPCModule());
             modules.Add(new PartSaleModule());
+            modules.Add(new WelcomePCModule());
         }
 
         /// <summary>
