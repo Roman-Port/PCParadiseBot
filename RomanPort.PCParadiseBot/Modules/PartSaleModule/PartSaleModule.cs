@@ -15,41 +15,29 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
         public RedditClient reddit;
 
         public DiscordChannel salesChannel;
-        public DiscordMessage salesMessage;
 
         public override async Task OnInit()
         {
-            //Create the reddit client
+            //Create the reddit client.
             reddit = await RedditClient.init(PCStatics.enviornment.reddit_secret, "PCParadiseBotv1");
 
             //Fetch channel
             salesChannel = await Program.discord.GetChannelAsync(PCStatics.enviornment.channel_sales);
-
-            //Attempt to get the last message to update. If it's our own, use it. If it's not, create one
-            try
-            {
-                salesMessage = await salesChannel.GetMessageAsync(salesChannel.LastMessageId);
-                if (salesMessage.Author.Id != Program.discord.CurrentUser.Id)
-                    //We do not own the last message. Create a new one
-                    salesMessage = null;
-            } catch
-            {
-                salesMessage = null;
-            }
-            if (salesMessage == null)
-                salesMessage = await salesChannel.SendMessageAsync("Loading, please wait...");
 
             //Begin the loop to fetch the list
             await Task.Run(async () =>
             {
                 while (true)
                 {
-                    try {
+                    try
+                    {
                         await UpdateList();
-                    } catch (Exception ex) {
+                        await Task.Delay(UPDATE_INTERVAL);
+                    }
+                    catch (Exception ex)
+                    {
                         await LogToServer("Failed to Update", "Failed to update sales message! Message may have been deleted or failed network request.", null);
                     }
-                    await Task.Delay(UPDATE_INTERVAL);
                 }
             });
         }
@@ -71,9 +59,9 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
                 builder.AddField($"Score {sub.posts.Current.score} (submitted by u/{sub.posts.Current.author}):", $"[{sub.posts.Current.name}]({sub.posts.Current.url})");
             }
 
-            //Build and update message
+            //Build and send message
             DiscordEmbed embed = builder.Build();
-            await salesMessage.ModifyAsync(content:"", embed: embed);
+            await salesChannel.SendMessageAsync(content: "", embed: embed);
         }
     }
 }
