@@ -25,7 +25,7 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
             salesChannel = await Program.discord.GetChannelAsync(PCStatics.enviornment.channel_sales);
 
             //Begin the loop to fetch the list
-            await Task.Run(async () =>
+            Task.Run(async () =>
             {
                 while (true)
                 {
@@ -55,8 +55,11 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
             .WithTimestamp(DateTime.UtcNow);
             for (int i = 1; i < 6; i++)
             {
+                if (!sub.posts.Current.stickied)
+                    builder.AddField($"Score {sub.posts.Current.score} (submitted by u/{sub.posts.Current.author}):", $"[{sub.posts.Current.name}]({sub.posts.Current.url})");
+                else
+                    i--; //we still want 5 posts, so don't increment this time.
                 await sub.posts.MoveNextAsync();
-                builder.AddField($"Score {sub.posts.Current.score} (submitted by u/{sub.posts.Current.author}):", $"[{sub.posts.Current.name}]({sub.posts.Current.url})");
             }
 
             //Build and send message
