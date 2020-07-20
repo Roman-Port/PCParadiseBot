@@ -32,7 +32,8 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
                 if (salesMessage.Author.Id != Program.discord.CurrentUser.Id)
                     //We do not own the last message. Create a new one
                     salesMessage = null;
-            } catch
+            }
+            catch
             {
                 salesMessage = null;
             }
@@ -44,9 +45,12 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
             {
                 while (true)
                 {
-                    try {
+                    try
+                    {
                         await UpdateList();
-                    } catch (Exception ex) {
+                    }
+                    catch (Exception ex)
+                    {
                         await LogToServer("Failed to Update", "Failed to update sales message! Message may have been deleted or failed network request.", null);
                     }
                     await Task.Delay(UPDATE_INTERVAL);
@@ -67,13 +71,16 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
             .WithTimestamp(DateTime.UtcNow);
             for (int i = 1; i < 6; i++)
             {
+                if (!sub.posts.Current.stickied)
+                    builder.AddField($"Score {sub.posts.Current.score} (submitted by u/{sub.posts.Current.author}):", $"[{sub.posts.Current.name}]({sub.posts.Current.url})");
+                else
+                    i--; //we still want 5 posts, so don't increment this time.
                 await sub.posts.MoveNextAsync();
-                builder.AddField($"Score {sub.posts.Current.score} (submitted by u/{sub.posts.Current.author}):", $"[{sub.posts.Current.name}]({sub.posts.Current.url})");
             }
 
             //Build and update message
             DiscordEmbed embed = builder.Build();
-            await salesMessage.ModifyAsync(content:"", embed: embed);
+            await salesMessage.ModifyAsync(content: "", embed: embed);
         }
     }
 }
