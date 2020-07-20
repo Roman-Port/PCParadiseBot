@@ -10,14 +10,16 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
     /// </summary>
     public class PartSaleModule : PCModule
     {
-        const int UPDATE_INTERVAL = 60 * 1000;
-
         public RedditClient reddit;
 
         public DiscordChannel salesChannel;
 
         public override async Task OnInit()
         {
+            //Validate
+            if (Program.config.part_sale_module_update_interval_seconds == 0)
+                throw new Exception("PC Part Sale Module Update Interval is not set in the config file!");
+            
             //Create the reddit client.
             reddit = await RedditClient.init(PCStatics.enviornment.reddit_secret, "PCParadiseBotv1");
 
@@ -32,7 +34,7 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
                     try
                     {
                         await UpdateList();
-                        await Task.Delay(UPDATE_INTERVAL);
+                        await Task.Delay(Program.config.part_sale_module_update_interval_seconds * 1000);
                     }
                     catch (Exception ex)
                     {

@@ -14,8 +14,10 @@ namespace RomanPort.PCParadiseBot
 {
     class Program
     {
+        public static PCConfig config;
         public static DiscordClient discord;
         public static List<PCModule> modules;
+
         static void Main(string[] args)
         {
             MainAsync().GetAwaiter().GetResult();
@@ -24,7 +26,7 @@ namespace RomanPort.PCParadiseBot
         public static async Task MainAsync()
         {
             //Load config
-            PCConfig config = JsonConvert.DeserializeObject<PCConfig>(File.ReadAllText("config.json"));
+            config = JsonConvert.DeserializeObject<PCConfig>(File.ReadAllText("config.json"));
             PCStatics.enviornment = config.enviornments[config.enviornment_name];
 
             //Set up Discord
