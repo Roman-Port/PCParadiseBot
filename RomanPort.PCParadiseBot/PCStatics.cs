@@ -21,5 +21,7 @@ namespace RomanPort.PCParadiseBot
         public ulong channel_general = 246414844851519490;
         public ulong channel_logs = 344309200069066763;
         public ulong channel_sales = 582712197956763679;
+
+        public string command_prefix = "%";
     }
 }

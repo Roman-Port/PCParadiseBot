@@ -1,6 +1,8 @@
-﻿using DSharpPlus.EventArgs;
+﻿using DSharpPlus.Entities;
+using DSharpPlus.EventArgs;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,10 +13,25 @@ namespace RomanPort.PCParadiseBot.Entities
         public string prefix;
         public DiscordFilterCommandArgsCallback callback;
 
-        public DiscordFilterCommand(string prefix, DiscordFilterCommandArgsCallback callback)
+        public string name;
+        public string help;
+
+        public DiscordFilterCommand(string name, string help, string prefix, DiscordFilterCommandArgsCallback callback)
         {
             this.prefix = prefix;
             this.callback = callback;
+            this.name = name;
+            this.help = help;
+        }
+
+        /// <summary>
+        /// Used to check if a user is allowed to use this command when viewing the help menu
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns></returns>
+        public virtual bool IsUserAllowed(DiscordMember m)
+        {
+            return true;
         }
 
         public override async Task<bool> IsAccepted(MessageCreateEventArgs e)

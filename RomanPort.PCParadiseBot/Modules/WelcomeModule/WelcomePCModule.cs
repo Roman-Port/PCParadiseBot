@@ -1,4 +1,6 @@
-﻿using DSharpPlus.EventArgs;
+﻿using DSharpPlus;
+using DSharpPlus.Entities;
+using DSharpPlus.EventArgs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,8 @@ namespace RomanPort.PCParadiseBot.Modules.WelcomeModule
         public override async Task OnInit()
         {
             BindToChannel(672617188003151941, OnMessage);
+            BindToCommandModerator("Lock", "Locks the server to new members. Only for use during raids. Moderator only.", PCStatics.enviornment.command_prefix + "lock", OnLockCommand);
+            BindToCommandModerator("Unlock", "Unlocks the server to new members. Moderator only.", PCStatics.enviornment.command_prefix + "unlock", OnUnlockCommand);
         }
 
         public const int FAILED_PROMPT_REMOVED_SECONDS = 8; //Number of seconds to wait before removing the prompt when a user fails
@@ -57,6 +61,75 @@ namespace RomanPort.PCParadiseBot.Modules.WelcomeModule
                 //Remove
                 await alertMsg.DeleteAsync("Cleaning up my message");
             }
+        }
+
+        public const ulong LOCKED_CHANNEL_ID = 673588744363966464;
+        public const ulong EMERGENCY_ROLE = 735575461245223013; //This role is given to moderators and allows them to manage roles while the server is locked. It serves no other purpose
+
+        private async Task OnLockCommand(MessageCreateEventArgs e, string content, string[] args)
+        {
+            //Get required entites
+            var lockedChannel = e.Guild.GetChannel(LOCKED_CHANNEL_ID);
+            var welcomeChannel = e.Guild.GetChannel(PCStatics.enviornment.channel_welcome);
+
+            //Create a locked message to send in #locked
+            await lockedChannel.SendMessageAsync(CreateLockedMessage());
+
+            //Allow access to that channel and block access to #welcome
+            await SetAccessChannelPermission(lockedChannel, Permissions.AccessChannels, Permissions.EmbedLinks | Permissions.AttachFiles | Permissions.AddReactions | Permissions.SendMessages);
+            await SetAccessChannelPermission(welcomeChannel, Permissions.None, Permissions.AccessChannels);
+
+            //Give moderators access to permissions
+            await e.Guild.UpdateRoleAsync(e.Guild.GetRole(EMERGENCY_ROLE), permissions: Permissions.ManageRoles, reason: "Granting permission because the server has been locked.");
+
+            //Log
+            await LogToServer("Server Locked", $"Server was locked.", e.Author);
+
+            //Reply
+            await e.Message.RespondAsync("Server was locked successfully. Remember to unlock the server to allow new members to access it.");
+        }
+
+        private async Task SetAccessChannelPermission(DiscordChannel targetChannel, Permissions allowedPermissions, Permissions disallowedPermissions)
+        {
+            foreach (var c in targetChannel.PermissionOverwrites)
+            {
+                if (c.Id == targetChannel.Guild.EveryoneRole.Id) //@everyone role
+                {
+                    await targetChannel.UpdateOverwriteAsync(c, allowedPermissions, disallowedPermissions, "Updated server lock status.");
+                    return;
+                }
+            }
+            throw new Exception("Could not find @everyone role.");
+        }
+
+        private string CreateLockedMessage()
+        {
+            DateTime refTime = DateTime.UtcNow.AddHours(-6);
+            return $"__**Welcome to PC Paradise!**__\n\nUnfortunately, the Discord server is currently receiving attacks. As a result, we cannot allow new members into the server. **This should only last up to 30 minutes.** The server was locked at {refTime.ToLongTimeString()} {refTime.ToShortDateString()} CST.\n\nTo join, wait until the server will be unlocked shortly, or DM one of the staff to gain access now. DO NOT interact with any direct messages you receive from members of this server during this time, as they are likely scams targeted at our members.\n\nThank you for your cooperation.";
+        }
+
+        private async Task OnUnlockCommand(MessageCreateEventArgs e, string content, string[] args)
+        {
+            //Get required entites
+            var lockedChannel = e.Guild.GetChannel(LOCKED_CHANNEL_ID);
+            var welcomeChannel = e.Guild.GetChannel(PCStatics.enviornment.channel_welcome);
+
+            //Allow access to #welcome and disable #locked
+            await SetAccessChannelPermission(welcomeChannel, Permissions.AccessChannels | Permissions.SendMessages, Permissions.EmbedLinks | Permissions.AttachFiles | Permissions.AddReactions);
+            await SetAccessChannelPermission(lockedChannel, Permissions.None, Permissions.AccessChannels);
+
+            //Reset moderator emergency permissions
+            await e.Guild.UpdateRoleAsync(e.Guild.GetRole(EMERGENCY_ROLE), permissions: Permissions.None, reason: "Server has been unlocked.");
+
+            //Clear all messages in locked. This cleans up the bot's messages
+            var lockedMessages = await lockedChannel.GetMessagesAsync(50);
+            await lockedChannel.DeleteMessagesAsync(lockedMessages, "Clearing #locked, as the server has been unlocked.");
+
+            //Log
+            await LogToServer("Server Locked", $"Server was unlocked.", e.Author);
+
+            //Reply
+            await e.Message.RespondAsync("Server was unlocked successfully!");
         }
     }
 }

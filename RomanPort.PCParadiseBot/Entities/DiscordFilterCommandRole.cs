@@ -1,4 +1,5 @@
-﻿using DSharpPlus.EventArgs;
+﻿using DSharpPlus.Entities;
+using DSharpPlus.EventArgs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,14 @@ namespace RomanPort.PCParadiseBot.Entities
     {
         public ulong id;
         
-        public DiscordFilterCommandRole(string prefix, ulong roleId, DiscordFilterCommandArgsCallback callback) : base(prefix, callback)
+        public DiscordFilterCommandRole(string title, string help, string prefix, ulong roleId, DiscordFilterCommandArgsCallback callback) : base(title, help, prefix, callback)
         {
             id = roleId;
+        }
+
+        public override bool IsUserAllowed(DiscordMember m)
+        {
+            return m.Roles.Where(x => x.Id == id).Count() > 0;
         }
 
         public override async Task<bool> IsAccepted(MessageCreateEventArgs e)

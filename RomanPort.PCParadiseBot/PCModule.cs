@@ -1,6 +1,7 @@
 ﻿using DSharpPlus.Entities;
 using Newtonsoft.Json;
 using RomanPort.PCParadiseBot.Entities;
+using RomanPort.PCParadiseBot.Modules.HelpModule;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -28,9 +29,10 @@ namespace RomanPort.PCParadiseBot
         /// </summary>
         /// <param name="prefix"></param>
         /// <param name="callback"></param>
-        public void BindToCommand(string prefix, DiscordFilterCommandArgsCallback callback)
+        public void BindToCommand(string title, string help, string prefix, DiscordFilterCommandArgsCallback callback)
         {
-            var b = new DiscordFilterCommand(prefix, callback);
+            var b = new DiscordFilterCommand(title, help, prefix, callback);
+            HelpCommandModule.commands.Add(b);
             b.Bind(this);
         }
 
@@ -39,9 +41,10 @@ namespace RomanPort.PCParadiseBot
         /// </summary>
         /// <param name="prefix"></param>
         /// <param name="callback"></param>
-        public void BindToCommandRole(string prefix, ulong roleId, DiscordFilterCommandArgsCallback callback)
+        public void BindToCommandRole(string title, string help, string prefix, ulong roleId, DiscordFilterCommandArgsCallback callback)
         {
-            var b = new DiscordFilterCommandRole(prefix, roleId, callback);
+            var b = new DiscordFilterCommandRole(title, help, prefix, roleId, callback);
+            HelpCommandModule.commands.Add(b);
             b.Bind(this);
         }
 
@@ -50,9 +53,9 @@ namespace RomanPort.PCParadiseBot
         /// </summary>
         /// <param name="prefix"></param>
         /// <param name="callback"></param>
-        public void BindToCommandAdmin(string prefix, DiscordFilterCommandArgsCallback callback)
+        public void BindToCommandAdmin(string title, string help, string prefix, DiscordFilterCommandArgsCallback callback)
         {
-            BindToCommandRole(prefix, PCStatics.enviornment.role_admin, callback);
+            BindToCommandRole(title, help, prefix, PCStatics.enviornment.role_admin, callback);
         }
 
         /// <summary>
@@ -60,9 +63,9 @@ namespace RomanPort.PCParadiseBot
         /// </summary>
         /// <param name="prefix"></param>
         /// <param name="callback"></param>
-        public void BindToCommandModerator(string prefix, DiscordFilterCommandArgsCallback callback)
+        public void BindToCommandModerator(string title, string help, string prefix, DiscordFilterCommandArgsCallback callback)
         {
-            BindToCommandRole(prefix, PCStatics.enviornment.role_moderator, callback);
+            BindToCommandRole(title, help, prefix, PCStatics.enviornment.role_moderator, callback);
         }
 
         /// <summary>

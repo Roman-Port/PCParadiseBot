@@ -10,10 +10,10 @@ namespace RomanPort.PCParadiseBot.Modules.ExampleModule
     {
         public override async Task OnInit()
         {
-            BindToCommandAdmin("%test", async (MessageCreateEventArgs e, string content, string[] args) =>
+            /*BindToCommandAdmin("", "", "%test", async (MessageCreateEventArgs e, string content, string[] args) =>
             {
                 Console.WriteLine("TEST!");
-            });
+            });*/
         }
     }
 }
