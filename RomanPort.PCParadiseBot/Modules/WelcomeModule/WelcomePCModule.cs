@@ -30,7 +30,7 @@ namespace RomanPort.PCParadiseBot.Modules.WelcomeModule
 
                 //Delete message
                 await e.Message.DeleteAsync();
-            } else if (e.Guild != null)
+            } else if (e.Guild != null && !e.Author.IsBot)
             {
                 //Fetch member so we can check the roles
                 var member = await e.Guild.GetMemberAsync(e.Author.Id);
