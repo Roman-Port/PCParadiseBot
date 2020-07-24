@@ -29,16 +29,25 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
             //Begin the loop to fetch the list
             Task.Run(async () =>
             {
+                int failedAttempts = 0;
                 while (true)
                 {
                     try
                     {
                         await UpdateList();
                         await Task.Delay(Program.config.part_sale_module_update_interval_seconds * 1000);
+                        failedAttempts = 0;
                     }
                     catch (Exception ex)
                     {
-                        await LogToServer("Failed to Update", "Failed to update sales message! Message may have been deleted or failed network request.", null);
+                        failedAttempts++;
+                        if (failedAttempts >= 5) {
+                            break;
+                            await LogToServer("Quiting Part sales", "I failed to update the sales message 5 times or more, quitting.", null);
+                        }
+                        else
+                            await LogToServer("Failed to Update", "Failed to update sales message! Message may have been deleted or failed network request.", null);
+                        await Task.Delay(1000); //wait a second before trying again.
                     }
                 }
             });
