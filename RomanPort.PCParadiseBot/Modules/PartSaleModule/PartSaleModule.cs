@@ -34,12 +34,12 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
                     try
                     {
                         await UpdateList();
-                        await Task.Delay(Program.config.part_sale_module_update_interval_seconds * 1000);
                     }
                     catch (Exception ex)
                     {
                         await LogToServer("Failed to Update", "Failed to update sales message! Message may have been deleted or failed network request.", null);
                     }
+                    await Task.Delay(Program.config.part_sale_module_update_interval_seconds * 1000);
                 }
             });
         }
