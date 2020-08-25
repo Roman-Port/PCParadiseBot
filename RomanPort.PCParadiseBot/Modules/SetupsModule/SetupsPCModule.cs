@@ -11,12 +11,13 @@ namespace RomanPort.PCParadiseBot.Modules.SetupsModule
     {
         public override async Task OnInit()
         {
+            //Bind
             BindToChannel(705487040560496760, OnMsgInSetupsSent);
         }
 
         public Dictionary<ulong, DateTime> lastSentMessage = new Dictionary<ulong, DateTime>(); //Lazy man way of saving the last time a user sent a message that was OK
 
-        public Regex linkRegex = new Regex(@"https?:\/\/(www\.)?(?!.*pcpartpicker\.com)([-a-zA-Z0-9@:%._\+~#=]+)\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)");
+        public Regex linkRegex = new Regex(@"https ?:\/\/(www\.)?(?!.*((pcpartpicker\.com)|(youtube\.com)))([-a-zA-Z0-9@:%._\+~#=]+)\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)");
 
         public const string TITLE_FORMATTING = "YOUR MESSAGE WAS NOT FORMATTED CORRECTLY AND WILL BE REMOVED";
         public const string TITLE_USER = "YOU ARE NOT YET ELIGIBLE AND YOUR MESSAGE WILL BE REMOVED";
