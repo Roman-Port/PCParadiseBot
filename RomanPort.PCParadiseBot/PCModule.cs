@@ -81,11 +81,9 @@ namespace RomanPort.PCParadiseBot
             var embed = new DiscordEmbedBuilder();
             embed.Title = title;
             embed.Description = text;
-            embed.Footer = new DiscordEmbedBuilder.EmbedFooter
-            {
-                Text = "MODULE " + GetType().FullName
-            };
-            if(user != null)
+            embed.AddField("Module Name", GetType().FullName);
+            embed.AddField("Server Name", Program.config.server_name + " - " + Program.config.enviornment_name);
+            if (user != null)
             {
                 embed.Author = new DiscordEmbedBuilder.EmbedAuthor
                 {
@@ -102,6 +100,29 @@ namespace RomanPort.PCParadiseBot
             } catch (Exception ex)
             {
                 Console.WriteLine($"FAILED TO SEND LOG WITH ERROR {ex.Message}: \nSTACK: {ex.StackTrace}\n\nEMBED: {JsonConvert.SerializeObject(embed)}");
+            }
+        }
+
+        public async Task LogExceptionToServer(string text, Exception ex)
+        {
+            //Build embed
+            var embed = new DiscordEmbedBuilder();
+            embed.Title = "Exception Thrown";
+            embed.Description = text;
+            embed.Color = DiscordColor.Red;
+            embed.AddField("Module Name", GetType().FullName);
+            embed.AddField("Exception Title", ex.Message);
+            embed.AddField("Exception Trace", ex.StackTrace);
+            embed.AddField("Server Name", Program.config.server_name + " - " + Program.config.enviornment_name);
+
+            //Send
+            try
+            {
+                await Program.discord.SendMessageAsync(await Program.discord.GetChannelAsync(PCStatics.enviornment.channel_logs), embed: embed);
+            }
+            catch (Exception inex)
+            {
+                Console.WriteLine($"FAILED TO SEND LOG WITH ERROR {inex.Message}: \nSTACK: {inex.StackTrace}\n\nEMBED: {JsonConvert.SerializeObject(embed)}");
             }
         }
     }
