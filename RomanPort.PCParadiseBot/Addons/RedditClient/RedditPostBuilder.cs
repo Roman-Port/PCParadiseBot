@@ -19,7 +19,7 @@ namespace RomanPort.PCParadiseBot.Addons.Reddit
             public bool stickied;
         }
         [JsonPropertyAttribute("data")]
-        public data internal_data = new data();
+        public data internal_data;
         public RedditPost build()
         {
             return new RedditPost(internal_data.name, internal_data.score, internal_data.author, internal_data.url, internal_data.stickied);
