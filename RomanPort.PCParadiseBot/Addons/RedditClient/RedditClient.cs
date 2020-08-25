@@ -29,8 +29,15 @@ namespace RomanPort.PCParadiseBot.Addons.Reddit
             {
                 while (true)
                 {
+                    try
+                    {
+                        await authenticate(client, secret, userAgent);
+                    }
+                    catch
+                    {
+                        continue;
+                    }
                     await System.Threading.Tasks.Task.Delay(3000 * 1000);
-                    await authenticate(client, secret, userAgent);
                 }
             });
             return new RedditClient(client);
