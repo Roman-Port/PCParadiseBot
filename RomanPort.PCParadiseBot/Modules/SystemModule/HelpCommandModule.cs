@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RomanPort.PCParadiseBot.Modules.HelpModule
+namespace RomanPort.PCParadiseBot.Modules.SystemModule
 {
     public class HelpCommandModule : PCModule
     {
@@ -27,11 +27,11 @@ namespace RomanPort.PCParadiseBot.Modules.HelpModule
             //Make base embed
             var embed = new DiscordEmbedBuilder();
             embed.Color = Program.STANDARD_EMBED_COLOR;
-            embed.Title = "RobotPort Help";
+            embed.Title = "RobotPort Help - [Open Source](https://github.com/Roman-Port/PCParadiseBot)";
             embed.Description = "Here are a list of commands you can use. Users with more roles may be able to see other commands.";
             embed.Footer = new DiscordEmbedBuilder.EmbedFooter
             {
-                Text = "Ccreated by RomanPort#0001 - [Open Source](https://github.com/Roman-Port/PCParadiseBot)"
+                Text = "Created by RomanPort#0001"
             };
 
             //Get commands

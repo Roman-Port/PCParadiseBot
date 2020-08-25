@@ -1,7 +1,7 @@
 ﻿using DSharpPlus.Entities;
 using Newtonsoft.Json;
 using RomanPort.PCParadiseBot.Entities;
-using RomanPort.PCParadiseBot.Modules.HelpModule;
+using RomanPort.PCParadiseBot.Modules.SystemModule;
 using System;
 using System.Collections.Generic;
 using System.Text;

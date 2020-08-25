@@ -2,7 +2,7 @@
 using DSharpPlus.Entities;
 using Newtonsoft.Json;
 using RomanPort.PCParadiseBot.Modules.ExampleModule;
-using RomanPort.PCParadiseBot.Modules.HelpModule;
+using RomanPort.PCParadiseBot.Modules.SystemModule;
 using RomanPort.PCParadiseBot.Modules.PartSaleModule;
 using RomanPort.PCParadiseBot.Modules.SetupsModule;
 using RomanPort.PCParadiseBot.Modules.WelcomeModule;
@@ -18,6 +18,9 @@ namespace RomanPort.PCParadiseBot
         public static PCConfig config;
         public static DiscordClient discord;
         public static List<PCModule> modules;
+
+        public const int BOT_VERSION_MAJOR = 2;
+        public const int BOT_VERSION_MINOR = 1;
 
         public static readonly DiscordColor STANDARD_EMBED_COLOR = new DiscordColor(56, 130, 220);
 
@@ -69,11 +72,11 @@ namespace RomanPort.PCParadiseBot
 
         public static void AddModules()
         {
-            modules.Add(new ExamplePCModule());
+            modules.Add(new HelpCommandModule());
+            modules.Add(new AboutCommandModule());
             modules.Add(new SetupsPCModule());
             modules.Add(new PartSaleModule());
             modules.Add(new WelcomePCModule());
-            modules.Add(new HelpCommandModule());
         }
 
         /// <summary>
