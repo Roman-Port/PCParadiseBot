@@ -20,7 +20,7 @@ namespace RomanPort.PCParadiseBot
         public static List<PCModule> modules;
 
         public const int BOT_VERSION_MAJOR = 2;
-        public const int BOT_VERSION_MINOR = 1;
+        public const int BOT_VERSION_MINOR = 2;
 
         public static readonly DiscordColor STANDARD_EMBED_COLOR = new DiscordColor(56, 130, 220);
 
