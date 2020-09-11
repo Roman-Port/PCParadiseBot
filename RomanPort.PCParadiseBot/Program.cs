@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using RomanPort.PCParadiseBot.Modules.EmojiBanModule;
 
 namespace RomanPort.PCParadiseBot
 {
@@ -77,6 +78,7 @@ namespace RomanPort.PCParadiseBot
             modules.Add(new SetupsPCModule());
             modules.Add(new PartSaleModule());
             modules.Add(new WelcomePCModule());
+            modules.Add(new EmojiBanPCModule());
         }
 
         /// <summary>
