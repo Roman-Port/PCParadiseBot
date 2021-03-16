@@ -81,7 +81,7 @@ namespace RomanPort.PCParadiseBot.Modules.PartSaleModule
 
                 }
                 else
-                    i--; //we still want 5 posts, so don't increment this time.
+                    i--; //we still want 8 posts, so don't increment this time.
                 await sub.posts.MoveNextAsync();
             }
 
