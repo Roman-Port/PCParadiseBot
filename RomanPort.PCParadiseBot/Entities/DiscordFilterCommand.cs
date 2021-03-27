@@ -33,7 +33,7 @@ namespace RomanPort.PCParadiseBot.Entities
         {
             return true;
         }
-
+        
         public override async Task<bool> IsAccepted(MessageCreateEventArgs e)
         {
             return e.Message.Content.ToLower().StartsWith(prefix);

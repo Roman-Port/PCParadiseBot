@@ -12,7 +12,7 @@ namespace RomanPort.PCParadiseBot
     public class PCStaticsEnviornment
     {
         public string access_token;
-        public string reddit_secret;
+        
         public ulong guild_id = 246414844851519490;
 
         public ulong role_admin = 478375138304327691;

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -32,12 +33,12 @@ namespace RomanPort.PCParadiseBot.Modules.SetupsModule
         private async Task OnMsgInSetupsSent(MessageCreateEventArgs e)
         {
             //If this is CorpBot, delete it (jank)
-            if (e.Author.Id == 225748203151163393)
+            if(e.Author.Id == 225748203151163393)
             {
                 await e.Message.DeleteAsync("DIE, FELLOW BOT!!!!!!!!!!");
                 return;
             }
-
+            
             //Make sure this wasn't a bot
             if (e.Author.IsBot)
                 return;
@@ -88,7 +89,7 @@ namespace RomanPort.PCParadiseBot.Modules.SetupsModule
             }*/
 
             //Check if we have a link
-            if (linkRegex.IsMatch(e.Message.Content))
+            if(linkRegex.IsMatch(e.Message.Content))
             {
                 await OnMsgNoPass(e, TITLE_FORMATTING, $"You cannot have links other than pcpartpicker in your description. Please remove any links and post again.", "HAS_LINKS");
                 return;
