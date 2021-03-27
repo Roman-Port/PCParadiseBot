@@ -2,13 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <noWarn>0649</noWarn>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="DSharpPlus" Version="3.2.3" />
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
 </Project>

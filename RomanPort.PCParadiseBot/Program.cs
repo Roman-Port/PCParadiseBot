@@ -3,7 +3,6 @@ using DSharpPlus.Entities;
 using Newtonsoft.Json;
 using RomanPort.PCParadiseBot.Modules.ExampleModule;
 using RomanPort.PCParadiseBot.Modules.SystemModule;
-using RomanPort.PCParadiseBot.Modules.PartSaleModule;
 using RomanPort.PCParadiseBot.Modules.SetupsModule;
 using RomanPort.PCParadiseBot.Modules.WelcomeModule;
 using System;
@@ -19,7 +18,6 @@ namespace RomanPort.PCParadiseBot
         public static PCConfig config;
         public static DiscordClient discord;
         public static List<PCModule> modules;
-
         public const int BOT_VERSION_MAJOR = 2;
         public const int BOT_VERSION_MINOR = 2;
 
@@ -58,14 +56,16 @@ namespace RomanPort.PCParadiseBot
                 try
                 {
                     await m.OnInit();
-                }
-                catch (Exception ex)
+                } catch (Exception ex)
                 {
-                    LogModuleError(ex, "Error while initializing module", m, null);
+                    await LogModuleError(ex, "Error while initializing module", m, null);
                 }
             }
             Console.WriteLine("Modules loaded.");
             Console.WriteLine("Startup finished.");
+
+            //Connect
+            await discord.ConnectAsync();
 
             //Hang
             await Task.Delay(-1);
@@ -76,7 +76,6 @@ namespace RomanPort.PCParadiseBot
             modules.Add(new HelpCommandModule());
             modules.Add(new AboutCommandModule());
             modules.Add(new SetupsPCModule());
-            modules.Add(new PartSaleModule());
             modules.Add(new WelcomePCModule());
             modules.Add(new EmojiBanPCModule());
         }
@@ -87,7 +86,7 @@ namespace RomanPort.PCParadiseBot
         /// <param name="ex"></param>
         /// <param name="module"></param>
         /// <param name="context"></param>
-        public static void LogModuleError(Exception ex, string title, PCModule module, DiscordChannel context)
+        public static async Task LogModuleError(Exception ex, string title, PCModule module, DiscordChannel context)
         {
             Console.WriteLine($"Module {module.GetType().FullName} threw exception in {title}:\n    {ex.Message}\n    {ex.StackTrace}");
         }

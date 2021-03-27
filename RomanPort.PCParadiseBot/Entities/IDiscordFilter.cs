@@ -1,5 +1,7 @@
 ﻿using DSharpPlus.EventArgs;
 using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RomanPort.PCParadiseBot.Entities
@@ -27,10 +29,9 @@ namespace RomanPort.PCParadiseBot.Entities
                 {
                     Task.Run(() => OnAccepted(e));
                 }
-            }
-            catch (Exception ex)
+            } catch (Exception ex)
             {
-                Program.LogModuleError(ex, "Exception thrown while executing command", module, e.Channel);
+                await Program.LogModuleError(ex, "Exception thrown while executing command", module, e.Channel);
             }
         }
     }
